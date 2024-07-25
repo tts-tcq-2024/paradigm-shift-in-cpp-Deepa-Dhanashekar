@@ -32,6 +32,6 @@ void testBatteryCheck() {
 }
 
 int main() {
-  testBattCheck();
+  testBatteryCheck();
   return 0;
 }
