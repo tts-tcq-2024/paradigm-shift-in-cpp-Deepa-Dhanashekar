@@ -34,17 +34,25 @@ const char* getErrorMessage(BreachType breachType) {
   };
   return errorMessages[breachType][currentLanguage].c_str();
 }
-
 BreachType classifyRangeBreach(float value, const ParameterRange& range) {
   if (value < range.min) {
     return range.lowBreach;
-  } else if (value > range.max) {
+  }
+  if (value > range.max) {
     return range.highBreach;
-  } else if (value < range.min + 5) { // Assuming a warning range of 5 units
+  }
+  
+  // Define warning thresholds
+  const float warningThreshold = 5.0;
+
+  // Check for warnings
+  if (value < range.min + warningThreshold) {
     return LOW_WARNING;
-  } else if (value > range.max - 5) { // Assuming a warning range of 5 units
+  }
+  if (value > range.max - warningThreshold) {
     return HIGH_WARNING;
   }
+  
   return NORMAL;
 }
 
